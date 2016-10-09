@@ -6,6 +6,8 @@ export default React.createClass({
   render() {
     let fAdv = "f_{\\text{adv}}";
     let fDrying = "f_{\\text{dry}}";
+    let fDryingEq0 = "f_{\\text{dry}} = 0";
+    let fDryingEq1 = "f_{\\text{dry}} = 1";
     let vDrying = "v_{\\text{dry}}";
     let fDiffusion = "f_{\\text{dif}}";
     let vDiffusion = "v_{\\text{dif}}";
@@ -208,15 +210,17 @@ export default React.createClass({
         The factor <TeX>{fDrying}</TeX> describing how much of the pigment to remove from the wet texture
         and insert into the dry one during a simulations step, is calculated as
         </p>
+
         <p>
         <TeX>{dryingEquation}</TeX>,
         </p>
+
         <p>where <TeX>{vDrying}</TeX> is a global "drying speed" constant, and <TeX>\epsilon</TeX> is a deterministic noise function used
         to modulate the drying over the canvas giving each grid cell (with coordinates <TeX>(x, y)</TeX>) a unique absoption coefficient, making the canvas less "perfect" and more realistic.
         The noise function is borrowed from Stefan Gustavsson's and Ashima Art's <a href="https://github.com/stegu/webgl-noise">implementation</a> of <a href="http://www.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf">simplex noise</a>. 
 
-        A value of <TeX>{fDrying} = 1</TeX> would mean that all the pigment is moved to the dry texture,
-        while <TeX>{fDrying} = 0</TeX> would mean that the system remains unchanged.</p>
+        A value of <TeX>{fDryingEq1}</TeX> would mean that all the pigment is moved to the dry texture,
+        while <TeX>{fDryingEq0}</TeX> = 0 would mean that the system remains unchanged.</p>
         
         <h4>Diffusion</h4>
         <p>
