@@ -11,8 +11,8 @@ export default React.createClass({
     let vDrying = "v_{\\text{dry}}";
     let fDiffusion = "f_{\\text{dif}}";
     let vDiffusion = "v_{\\text{dif}}";
-    let waterAdvectionEquation = "w_1 = w_1^\\prime \\cdot (1 - f_{adv}(w_1^\\prime)) + w_2^\\prime \\cdot f_{adv}(w_2^\\prime)";
-    let wetAdvectionEquation = "p_1 = p_1^\\prime \\cdot (1 - f_{adv}(w_1^\\prime)) + p_2^\\prime \\cdot f_{adv}(w_2^\\prime)";
+    let waterAdvectionEquation = "w_1 = w_1^\\prime \\cdot (1 - " + fAdv + "(w_1^\\prime)) + w_2^\\prime \\cdot " + fAdv + "(w_2^\\prime)";
+    let wetAdvectionEquation = "p_1 = p_1^\\prime \\cdot (1 - " + fAdv + "(w_1^\\prime)) + p_2^\\prime \\cdot " + fAdv + "(w_2^\\prime)";
     let advectionFactorImplementation = [
       'float advectionFactor(waterAmount)\n' +
       '  return smoothstep(0.2, 0.8, water) * 0.8;\n' +
