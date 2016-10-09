@@ -4,7 +4,7 @@ import TeX from 'react-components/js/tex.jsx';
 
 export default React.createClass({
   render() {
-    let fAdv = "f_{\\text{{adv}}";
+    let fAdv = "f_{\\text{adv}}";
     let fDrying = "f_{\\text{dry}}";
     let vDrying = "v_{\\text{dry}}";
     let fDiffusion = "f_{\\text{dif}}";
@@ -65,8 +65,8 @@ export default React.createClass({
         to drain all the available resources and make other applications run slow.
         There are sophisticated physical models out there that accurately approximate the behavior of a real fluid, but in order to create
         efficient real-time graphics applications, it is sometimes a good idea to cheat. For example,
-        while it still makes sense to base the model on physics, modelling surface tension and pressure accurately is not 
-        only difficult to implement: it also requires a lot of computational resources to get 100% right.
+        while it still makes sense to base the model on physical laws, modelling surface tension and pressure accurately is not 
+        only difficult to implement: it also requires a lot of computational resources to get right.
         </p>
         <p>
         After experimenting with a really simple model, where paint would just be represented
@@ -82,7 +82,7 @@ export default React.createClass({
         <li>Simple advection (movement) of water due to external forces like gravity</li>
         <li>Evaporation of water</li>
         <li>Fixation of wet pigment into the canvas (paint drying)</li>
-        <li>Diffusion, that allow colors to mix</li>
+        <li>Diffusion that allow colors to mix</li>
         </ul>
 
         <h3>A grid with values</h3>
@@ -99,7 +99,7 @@ export default React.createClass({
         <li>Color of the dried pigment (<TeX>RGB</TeX>-vector)</li>
         </ul>
 
-        <p>This means that a sum of nine scalar values per grid cell are used.
+        <p>This means that a total of nine scalar values per grid cell are used.
         In WebGL this is represented as two <TeX>RGBA</TeX>-textures and one scalar texture.
         The two <TeX>RGBA</TeX> textures represent the state of wet and dry pigment respectively,
         with the <TeX>RGB</TeX> channels storing the pigment color and the <TeX>A</TeX> channel storing the amount of pigment.
@@ -113,7 +113,7 @@ export default React.createClass({
         Manipulation of the grid, i.e. addition of new paint and simulation of existing paint,
         is done by feeding in the grid textures as input to a shader program, that writes new values to a new set of textures.
         Once the new state of the simulation has been stored in a set of textures, the old texture set can be reused for the next simulation step.
-        This means that in total, one canvas requires four <TeX>RGB</TeX>-textures and two scalar ones. 
+        This means that in total, one canvas requires four <TeX>RGBA</TeX>-textures and two scalar ones. 
         </p>
 
 
@@ -145,7 +145,7 @@ export default React.createClass({
 
         <h4>Advection</h4>
         <p>
-        When observing real water drops on a vertical surface, drops with little water tend to stick to the surface,
+        When observing real water drops on a vertical surface, small drops tend to stick to the surface,
         while bigger drops of water tend to flow down the surface as gravity overcomes the 
         attractive forces between the drop and the canvas.
         To capture this effect, the amount of water stored in a cell is programmed

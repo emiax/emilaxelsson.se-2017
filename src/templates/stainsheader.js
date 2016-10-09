@@ -21,8 +21,6 @@ export default React.createClass({
       return [w, h];
     }
 
-    console.log(canvas);
-
     let titleVisible = true;
     let canvasSize = [0, 0];
 
