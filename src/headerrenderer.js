@@ -28,7 +28,7 @@ class HeaderRenderer {
     let polygon = [-1,-1, 1,-1, 1,1, -1,1];
     let vertices = this._triangulator.triangulate(polygon);
 
-    console.log(vertices);
+    //console.log(vertices);
 
     this._vertexCoordinates = new Buffer({
         context: context,
@@ -86,7 +86,7 @@ class HeaderRenderer {
 
     this._shaderPass.setUniform('texturePixelSize', [1/this._textureSize[0], 1/this._textureSize[1]]);
     //this._shaderPass.setUniform('headerPixelSize', [1/this._headerSize[0], 1/this._headerSize[1]]);
-    this._shaderPass.setUniform('splashScreenRatio', ratio);
+    //this._shaderPass.setUniform('splashScreenRatio', ratio);
     this._shaderPass.apply();
   }
 
@@ -100,7 +100,7 @@ class HeaderRenderer {
 
   setSplashScreenRatio(ratio) {
     this._splashScreenRatio = ratio;
-    console.log(this._splashScreenRatio);
+    //console.log(this._splashScreenRatio);
   }
 
 }

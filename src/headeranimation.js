@@ -74,6 +74,8 @@ class HeaderAnimation {
   }
 
   stop() {
+    console.log("stopping animation.");
+    this._stats.domElement.remove();
     this._status = 'stop';
   }
 
@@ -125,7 +127,7 @@ class HeaderAnimation {
 
       this._simulator.step();
       this._headerRenderer.render(this._simulator);
-      //console.log('sim step!');
+
       requestAnimationFrame(this.step.bind(this));
       this._stats.end();
     } else {

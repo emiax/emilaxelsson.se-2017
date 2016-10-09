@@ -26,6 +26,7 @@ export default React.createClass({
       <h2>Some of my work</h2>
       <h3>OpenSpace and Master's thesis @ NASA</h3>
 
+      <div className="imagetest" style={{width: '400px', height: '400px'}}></div>
       <p>
       Interdum et malesuada fames ac ante ipsum primis in faucibus.
       Suspendisse feugiat scelerisque justo, in dignissim mauris.
@@ -38,8 +39,11 @@ export default React.createClass({
       vestibulum nibh.
       </p>
 
-      <h3>Accessibility @ Spotify</h3>
+      <h3>Best Healthcare and Medical Care @ East Sweden Hack 2016</h3>
 
+      <h3>Accessibility @ Spotify</h3>
+      
+      <div className="imagetest2" style={{width: '200px', height: '200px'}}></div>
       <p>
       Vivamus quis malesuada nisl. Phasellus volutpat orci ut metus gravida,
       quis varius leo porta. Pellentesque neque diam, consequat et justo sed, finibus pretium dui.

@@ -4,7 +4,7 @@ html {
 
 header {
   background-color: #fff;
-  color: #fff;
+  color: #000;
   text-align: center;
   height: 100vh;
   overflow: hidden;
@@ -51,8 +51,15 @@ header h2 {
 .main-title {
   width: 100%;
   position: absolute;
-  bottom: 45vh;
+  bottom: 40vh;
   left: 0;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 4em;
+  padding-bottom: 1em;
+  padding-top: 0.2em;
 }
 
 
@@ -68,6 +75,13 @@ h3 {
   padding-bottom: 0.5em; 
 }
 
+h4 {
+  font-weight: 700;
+  font-size: 1.5em;
+  padding-bottom: 0.5em; 
+}
+
+
 
 article {
   max-width: 800px;
@@ -79,19 +93,55 @@ article {
 }
 
 
-article p {
+article p, article ul, article pre{
   font-size: 1.4em;
-  padding-bottom: 1.2em;
   text-align: left;
   color: #777;
   line-height: 1.4em;
   font-weight: 300;
+  padding-bottom: 1.2em;
 }
 
+a {
+  color: #5b9b42;
+}
 
+.imagetest {
+  float: left;
+  margin: 25px 25px 25px -100px;
+  background-color: #444;
+}
+
+@media (max-width: 1000px) {
+  .imagetest {
+    margin: 25px 25px 25px 0;
+  }
+}
+
+.imagetest2 {
+  float: right;
+  margin: 25px -100px 25px 25px;
+  background-color: #444;
+}
+
+@media (max-width: 1000px) {
+  .imagetest2 {
+    margin: 25px 0 25px 25px;
+  }
+}
+
+@media (max-width: 500px) {
+  .imagetest {
+    float: none;
+  }
+}
 
 
 p.intro {
   color: #000;
   font-weight: 400;
-};
+}
+
+.small {
+  font-size: 1em;
+}
