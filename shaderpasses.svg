@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="shaderpasses" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" width="278.554px" height="75.458px" viewBox="0 0 278.554 75.458" enable-background="new 0 0 278.554 75.458"
+	 xml:space="preserve">
+	 <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,700italic,400italic,300italic);</style>
+<g opacity="0.9">
+	<path fill="#D3E5EE" d="M104.102,21.972c0,1.702-1.393,3.095-3.095,3.095H3.095C1.393,25.067,0,23.675,0,21.972V11.896
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V21.972z"/>
+</g>
+<g opacity="0.9">
+	<path fill="#EFEFEF" d="M104.102,46.946c0,1.702-1.393,3.095-3.095,3.095H3.095C1.393,50.041,0,48.648,0,46.946V36.869
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V46.946z"/>
+</g>
+<g opacity="0.9">
+	<path fill="#DCDBDB" d="M104.102,72.363c0,1.702-1.393,3.095-3.095,3.095H3.095C1.393,75.458,0,74.066,0,72.363V62.287
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V72.363z"/>
+</g>
+<g opacity="0.9">
+	<path fill="#D3E5EE" d="M278.554,21.972c0,1.702-1.393,3.095-3.095,3.095h-97.912c-1.702,0-3.095-1.393-3.095-3.095V11.896
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V21.972z"/>
+</g>
+<g opacity="0.9">
+	<path fill="#EFEFEF" d="M278.554,46.946c0,1.702-1.393,3.095-3.095,3.095h-97.912c-1.702,0-3.095-1.393-3.095-3.095V36.869
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V46.946z"/>
+</g>
+<g opacity="0.9">
+	<path fill="#DCDBDB" d="M278.554,72.363c0,1.702-1.393,3.095-3.095,3.095h-97.912c-1.702,0-3.095-1.393-3.095-3.095V62.287
+		c0-1.702,1.393-3.095,3.095-3.095h97.912c1.702,0,3.095,1.393,3.095,3.095V72.363z"/>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 7.7337 20.2107)" fill="#5F90B7" font-family="'Lato'" font-size="8.5039">OLD WATER TEXTURE</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 13.5375 45.4341)" fill="#37415E" font-family="'Lato'" font-weight="700" font-size="8.5039">OLD WET TEXTURE</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 14.2045 71.3251)" fill="#666364" font-family="'Lato'" font-weight="700" font-size="8.5039">OLD DRY TEXTURE</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 180.8514 20.2107)" fill="#5F90B7" font-family="'Lato'" font-weight="700" font-size="8.5039">NEW WATER TEXTURE</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 110.3942 13.1749)" fill="#5F90B7" font-family="'Lato'" font-weight="700" font-size="8.5039">shader pass 1</text>
+</g>
+<text transform="matrix(1 0 0 1 110.3942 43.2086)" fill="#37415E" font-family="'Lato'" font-weight="700" font-size="8.5039">shader pass 2</text>
+<g>
+	<text transform="matrix(1 0 0 1 110.3942 68.3251)" fill="#666364" font-family="'Lato'" font-weight="700" font-size="8.5039">shader pass 3</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 186.6551 45.4341)" fill="#37415E" font-family="'Lato'" font-weight="700" font-size="8.5039">NEW WET TEXTURE</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 187.3221 71.3251)" fill="#666364" font-family="'Lato'" font-weight="700" font-size="8.5039">NEW DRY TEXTURE</text>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#5F90B7" stroke-miterlimit="10" x1="104.102" y1="16.934" x2="168.417" y2="16.934"/>
+		<g>
+			<path fill="#5F90B7" d="M174.452,16.934c-2.84,1.054-6.363,2.852-8.547,4.756l1.72-4.756l-1.72-4.755
+				C168.089,14.084,171.613,15.881,174.452,16.934z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#37415E" stroke-miterlimit="10" x1="104.102" y1="45.434" x2="168.417" y2="45.434"/>
+		<g>
+			<path fill="#37415E" d="M174.452,45.434c-2.84,1.054-6.363,2.852-8.547,4.756l1.72-4.756l-1.72-4.755
+				C168.089,42.583,171.613,44.381,174.452,45.434z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#666364" stroke-miterlimit="10" x1="104.102" y1="45.434" x2="168.632" y2="63.107"/>
+		<g>
+			<path fill="#666364" d="M174.452,64.701c-3.017,0.266-6.891,1.069-9.5,2.329l2.915-4.133l-0.403-5.04
+				C169.068,60.271,171.992,62.936,174.452,64.701z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#37415E" stroke-miterlimit="10" x1="104.102" y1="19.211" x2="168.632" y2="36.884"/>
+		<g>
+			<path fill="#37415E" d="M174.452,38.478c-3.017,0.266-6.891,1.069-9.5,2.329l2.915-4.133l-0.403-5.04
+				C169.068,34.048,171.992,36.712,174.452,38.478z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#666364" stroke-miterlimit="10" x1="104.102" y1="71.325" x2="167.392" y2="71.325"/>
+		<g>
+			<polygon fill="#666364" points="174.452,71.325 164.503,75.391 166.864,71.325 164.503,67.261 			"/>
+		</g>
+	</g>
+</g>
+</svg>
