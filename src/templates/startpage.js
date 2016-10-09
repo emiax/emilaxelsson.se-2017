@@ -24,6 +24,9 @@ export default React.createClass({
       </p>
 
       <h2>Some of my work</h2>
+      <h3>Stains: Procedural aquarelle</h3>      
+      <Link to="stains">Stains</Link>
+
       <h3>OpenSpace and Master's thesis @ NASA</h3>
 
       <div className="imagetest" style={{width: '400px', height: '400px'}}></div>
@@ -75,9 +78,6 @@ export default React.createClass({
 
       <h3>Continuous</h3>
       <p>A concept for visualizing math in the browser.</p>
-
-      <h3>Stains, WebGL hack</h3>
-
 
       <h3>The future of Norrköping: Dome movie production</h3>
 

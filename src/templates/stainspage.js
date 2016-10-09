@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import TeX from 'react-components/js/tex.jsx';
+import StainsHeader from './stainsheader';
 
 export default React.createClass({
   render() {
@@ -21,8 +22,13 @@ export default React.createClass({
     let diffusionEquation = fDiffusion + ' = ' + vDrying + '\\cdot w_1^\\prime \\cdot w_2^\\prime';
 
     return (
+
       <article>
+        <Link to="start">Emil Axelsson</Link>
+
         <h1>Stains</h1>
+        <StainsHeader/>
+        
         
         <h2>The course</h2>
         <p>
@@ -75,7 +81,7 @@ export default React.createClass({
         as a color and an amount, I realized that an important visual aspect of
         aquarelle is the possibility to vary the concentration of pigment in water.
         Hence I modified the model to be able represent both dry and wet paint separately.
-        This allows the paint to have a variable concentration of pigment solved in the water.
+        This allows the paint to have a variable concentration of pigment dissolved in the water.
         Separating dry and wet paint also makes it possible to model several important processes in aquarelle;
         the effects that made it into the final implementation are:
         </p>
@@ -95,8 +101,8 @@ export default React.createClass({
 
         <ul>
         <li>Amount of water (scalar value)</li>
-        <li>Amount of pigment solved in the water (scalar value)</li>
-        <li>Color of the solved pigment (<TeX>RGB</TeX>-vector)</li>
+        <li>Amount of pigment dissolved in the water (scalar value)</li>
+        <li>Color of the dissolved pigment (<TeX>RGB</TeX>-vector)</li>
         <li>Amount of dried pigment (scalar value)</li>
         <li>Color of the dried pigment (<TeX>RGB</TeX>-vector)</li>
         </ul>
@@ -201,7 +207,7 @@ export default React.createClass({
 
         <h4>Drying</h4>
         <p>
-        While pigment that are solved in water is transported along with the water,
+        While pigment that are disolved in water is transported along with the water,
         pigment that have been absorbed by the canvas is less likely to get flushed away by the water.
         In reality, a canvas is a quite rough surface which makes the absorption non-uniform. 
         To achieve these effects, each simulation step contains a simple algorithm that
@@ -220,11 +226,11 @@ export default React.createClass({
         The noise function is borrowed from Stefan Gustavsson's and Ashima Art's <a href="https://github.com/stegu/webgl-noise">implementation</a> of <a href="http://www.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf">simplex noise</a>. 
 
         A value of <TeX>{fDryingEq1}</TeX> would mean that all the pigment is moved to the dry texture,
-        while <TeX>{fDryingEq0}</TeX> = 0 would mean that the system remains unchanged.</p>
+        while <TeX>{fDryingEq0}</TeX> would mean that the system remains unchanged.</p>
         
         <h4>Diffusion</h4>
         <p>
-        In a real aquarelle painting, colors solved in water easily mixes with neighboring colors.
+        In a real aquarelle painting, colors disolved in water easily mixes with neighboring colors.
         Water levels also tend to smooth out, so that water drops get
         round shapes when surface tension and other forces sets in.
         While real surface-tension is difficult to model, it is possible to achieve a similar effect by 
@@ -265,12 +271,10 @@ export default React.createClass({
        <h3>TODO</h3>
        <ul>
        <li>Gravity from device orientation</li>
-       <li>See if it's possible to get rid of grainy artifacts</li>
        <li>Add paint manually</li>
        <li>Support different size of stains from 1 render pass</li>
        <li>Distribute stains</li>
        </ul> 
-
 
     </article>
     )

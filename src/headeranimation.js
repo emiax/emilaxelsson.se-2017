@@ -10,7 +10,8 @@ import StainBrush from 'stains/src/brushes/stainbrush';
 
 class HeaderAnimation {
   constructor(gl, w, h) {
-    let textureSize = vec2.fromValues(1920, 1080);
+    //let textureSize = vec2.fromValues(1920, 1080);
+    let textureSize = vec2.fromValues(w, h);
 
     let context = this._context = new WebglContext(gl);
     this._simulator = new Simulator({
@@ -87,13 +88,13 @@ class HeaderAnimation {
       let amount = 0.8;
       let timerCoefficient = 1;
       if (this._nStains < 500) {
-        size *= 2;
-        amount *= 0.5;
+        size *= 1.5;
+        amount *= 0.8;
         timerCoefficient * 2.0;
       }
       if (this._nStains < 100 && this._nStains % 3 === 0) {
-        size *= 2;
-        amount *= 0.5;
+        size *= 1.5;
+        amount *= 0.8;
         timerCoefficient * 2.0;
       }
 
@@ -103,7 +104,7 @@ class HeaderAnimation {
           this._imageStainBrush.apply(size, amount);
           this._nStains++;
         }
-        this._stainTimer = Math.random() * 8 * timerCoefficient;
+        this._stainTimer = Math.random() * 2 * timerCoefficient;
       }
 
 
