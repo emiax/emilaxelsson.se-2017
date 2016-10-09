@@ -60,6 +60,7 @@ export default React.createClass({
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="310.485px" height="295.289px" viewBox="0 0 310.485 295.289" enableBackground="new 0 0 310.485 295.289"
    xmlSpace="preserve">
+   <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,700italic,400italic,300italic);</style>
 <g opacity="0.8">
   <path fill="#010101" d="M73.47,295.289c-7.795,0-16.144-6.066-18.553-13.48L4.38,126.27c-2.409-7.414,0.78-17.228,7.087-21.81
     l132.31-96.129c6.307-4.582,16.626-4.582,22.933,0l132.31,96.129c6.307,4.582,9.495,14.397,7.087,21.81l-50.538,155.539
@@ -78,7 +79,7 @@ export default React.createClass({
     c2.534-1.841,6.079-1.279,7.919,1.254c1.84,2.533,1.279,6.079-1.254,7.919L75.381,159.91
     C74.374,160.641,73.208,160.994,72.053,160.994z"/>
 </g>
-<text transform="matrix(1 0 0 1 70.3246 226.7817)" fill="#ffffff" fontFamily="'Lato-Bold'" fontSize="28.3465">emil axelsson</text>
+<text transform="matrix(1 0 0 1 70.3246 226.7817)" fill="#ffffff" fontFamily="'Lato'" fontWeight="700" fontSize="28.3465">emil axelsson</text>
 </svg>
 
         </div>
