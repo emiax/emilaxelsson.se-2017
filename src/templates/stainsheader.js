@@ -40,11 +40,6 @@ export default React.createClass({
         headerAnimation.setSize(size[0], size[1]);
       });
 
-      window.addEventListener('scroll', function (data) {
-        let scroll = document.documentElement.scrollTop || document.body.scrollTop;
-        headerAnimation.setScroll(scroll);
-      });
-
       headerAnimation.start();
     }
   },

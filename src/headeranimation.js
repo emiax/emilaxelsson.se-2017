@@ -1,7 +1,7 @@
 import WebglContext from 'stains/src/webglcontext';
 import Simulator from 'stains/src/simulator';
 import HeaderRenderer from './headerrenderer';
-import {vec2} from 'gl-matrix';
+import {vec2, vec3} from 'gl-matrix';
 import Stats from 'stats-js';
 
 import RandomStainBrush from 'stains/src/brushes/randomstainbrush';
@@ -36,8 +36,26 @@ class HeaderAnimation {
         ]
     );
 
+    let force = this._force = vec3.fromValues(0, 0, 0);
 
-    this._simulator.init();
+    let self = this;
+    window.ondevicemotion = function(event) {
+      let f = event.accelerationIncludingGravity;
+      if (f && f.x && f.y && f.z) {
+        
+        let accMagnitude = f.x * f.x + f.y * f.y + f.z * f.z; 
+        let denominator = Math.max(accMagnitude, 1.0);
+        vec3.set(self._force, f.x / denominator, f.y / denominator, f.z / denominator);
+
+        //console.log(self._force);
+        //self._forceChanged = true;
+      }
+    }
+
+    if (!this._simulator.init()) {
+      this._initialized = false;
+      return;
+    }
 
     this._headerRenderer = new HeaderRenderer({
       context: context,
@@ -65,6 +83,8 @@ class HeaderAnimation {
     this._stainTimer = 0;
     this._nStains = 0;
     this._stainPosition = vec2.fromValues(200, 1);
+
+    this._initialized = true;
   }
 
   start() {
@@ -81,6 +101,28 @@ class HeaderAnimation {
   }
 
   step() {
+
+
+    if (this._forceChanged) {
+      this._simulator.setTextureCoordinatesAndForces(
+        [ 0.0, 1.0, 
+          0,  0,
+          1.0, 0,
+          0,  1.0,
+          1.0, 0,
+          1.0, 1.0
+          ],
+          [ this._force[0], this._force[1], 
+            this._force[0], this._force[1],
+            this._force[0], this._force[1],
+            this._force[0], this._force[1],
+            this._force[0], this._force[1],
+            this._force[0], this._force[1]
+          ]
+      );
+      this._forceChanged = false;
+    }
+
     if (this._status === 'on') {
       this._stats.begin();
 
@@ -138,13 +180,6 @@ class HeaderAnimation {
 
   setSize(w, h) {
     this._headerRenderer.setHeaderSize(vec2.fromValues(w, h));
-  }
-
-  setScroll(scroll) {
-    let distance = window.innerHeight/8;
-    let start = window.innerHeight/8;
-    let splashScreenRatio = Math.min(Math.max(0, (distance - scroll + start) / distance), 1);
-    this._headerRenderer.setSplashScreenRatio(splashScreenRatio);
   }
 }
 
