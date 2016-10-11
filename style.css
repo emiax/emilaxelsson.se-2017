@@ -95,7 +95,7 @@ article {
 }
 
 
-article p, article ul, article pre{
+article p, article ul {
   font-size: 1.4em;
   text-align: left;
   color: #444;
@@ -103,6 +103,19 @@ article p, article ul, article pre{
   font-weight: 300;
   padding-bottom: 1.2em;
 }
+
+.katex {
+  font-size: 0.95em;
+}
+
+.block-equation {
+  text-align: center;
+}
+
+.block-equation .katex {
+  font-size: 1.1em;
+}
+
 
 a {
   color: #5b9b42;
@@ -147,3 +160,16 @@ p.intro {
 .small {
   font-size: 1em;
 }
+
+
+
+pre.source-code {
+  text-align: left;
+  font-size: 1.4em;
+  font-family: monospace;
+  line-height: 1.55em;
+  padding: 2em;
+  color: #eee;
+  background-color: #444;
+  margin-bottom: 1.2em;
+} 

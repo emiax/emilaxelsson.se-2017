@@ -12,8 +12,14 @@ class HeaderAnimation {
   constructor(gl, w, h) {
     //let textureSize = vec2.fromValues(1920, 1080);
     let textureSize = vec2.fromValues(w, h);
+    //let textureSize = vec2.fromValues(512, 512);
 
     let context = this._context = new WebglContext(gl);
+    context.getExtension('OES_texture_float');
+    context.getExtension('OES_texture_float_linear');
+    context.getExtension('OES_texture_half_float');
+    context.getExtension('OES_texture_half_float_linear');
+
     this._simulator = new Simulator({
       context: context,
       size: textureSize
@@ -82,7 +88,6 @@ class HeaderAnimation {
 
     this._stainTimer = 0;
     this._nStains = 0;
-    this._stainPosition = vec2.fromValues(200, 1);
 
     this._initialized = true;
   }
@@ -140,30 +145,12 @@ class HeaderAnimation {
         timerCoefficient * 2.0;
       }
 
-
       if (this._stainTimer < 0) {
         if (this._imageStainBrush.isReady()) {
           this._imageStainBrush.apply(size, amount);
           this._nStains++;
         }
         this._stainTimer = Math.random() * 2 * timerCoefficient;
-      }
-
-
-
-      let stainPosition = vec2.clone(this._stainPosition);
-      stainPosition[0] += Math.random() * 200 - 100;
-      stainPosition[1] += Math.random() * 200 - 100;
-      //this._stainBrush.apply(stainPosition);
-      this._stainPosition[0] *= 1.02;
-      this._stainPosition[1] += 3;
-
-      if (this._stainPosition[0] > 1920) {
-        this._stainPosition[0] = 2;
-      }
-
-      if (this._stainPosition[1] > 1080) {
-        this._stainPosition[1] = 2;
       }
 
       this._stainTimer--;

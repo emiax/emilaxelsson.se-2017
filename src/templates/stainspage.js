@@ -10,7 +10,7 @@ export default React.createClass({
     let fDryingEq0 = "f_{\\text{dry}} = 0";
     let fDryingEq1 = "f_{\\text{dry}} = 1";
     let vDrying = "v_{\\text{dry}}";
-    let fDiffusion = "f_{\\text{dif}}";
+    let fDiffusion = "f_{\\text{dif}_i}";
     let vDiffusion = "v_{\\text{dif}}";
     let waterAdvectionEquation = "w_1 = w_1^\\prime \\cdot (1 - " + fAdv + "(w_1^\\prime)) + w_2^\\prime \\cdot " + fAdv + "(w_2^\\prime)";
     let wetAdvectionEquation = "p_1 = p_1^\\prime \\cdot (1 - " + fAdv + "(w_1^\\prime)) + p_2^\\prime \\cdot " + fAdv + "(w_2^\\prime)";
@@ -19,7 +19,10 @@ export default React.createClass({
       '  return smoothstep(0.2, 0.8, water) * 0.8;\n' +
       '}'];
     let dryingEquation = fDrying + ' = ' + vDrying + ' \\cdot (1 + \\epsilon(x, y))';
-    let diffusionEquation = fDiffusion + ' = ' + vDrying + '\\cdot w_1^\\prime \\cdot w_2^\\prime';
+    let diffusionFactorEquation = fDiffusion + ' = \\text{min}(' + vDiffusion + '\\cdot w^\\prime \\cdot w_i^\\prime, \\frac{1}{4})';
+
+    let diffusionWaterEquation = 'w = (1 - \\sum_{i} ' + fDiffusion + ') \\cdot w^\\prime + \\sum_{i} ' + fDiffusion + 'w^\\prime_i';
+    let diffusionPigmentEquation = 'p_w = (1 - \\sum_{i} ' + fDiffusion + ') \\cdot p_w^\\prime + \\sum_{i} ' + fDiffusion + 'p_{w_i}^\\prime';
 
     return (
 
@@ -162,7 +165,7 @@ export default React.createClass({
         while the second sample <TeX>w_2^\prime</TeX> is made with an offset in the opposite direction of the force acting on the fluid.
         The new amount of water <TeX>w_1</TeX> in the cell is then calculated as
         </p>
-        <p>
+        <p className="block-equation">
         <TeX>{waterAdvectionEquation}</TeX>,
         </p>
         <p>
@@ -172,7 +175,7 @@ export default React.createClass({
         implemented in GLSL as 
         </p>
 
-        <pre>
+        <pre className="source-code">
         {advectionFactorImplementation}
         </pre>
 
@@ -187,7 +190,7 @@ export default React.createClass({
         old pigment amounts <TeX>p_1^\prime</TeX> and <TeX>p_2^\prime</TeX>,
         sampled on the same locations as <TeX>w_1^\prime</TeX> and <TeX>w_2^\prime.</TeX>
         </p>
-        <p>
+        <p className="block-equation">
         <TeX>{wetAdvectionEquation}</TeX>
         </p>
 
@@ -217,7 +220,7 @@ export default React.createClass({
         and insert into the dry one during a simulations step, is calculated as
         </p>
 
-        <p>
+        <p className="block-equation">
         <TeX>{dryingEquation}</TeX>,
         </p>
 
@@ -230,31 +233,33 @@ export default React.createClass({
         
         <h4>Diffusion</h4>
         <p>
-        In a real aquarelle painting, colors disolved in water easily mixes with neighboring colors.
-        Water levels also tend to smooth out, so that water drops get
-        round shapes when surface tension and other forces sets in.
+        In a real aquarelle painting, dissolved color pigments easily mix with pigments in their vicinity.
+        Water levels also tend to smooth out, so that water drops attain round shapes when surface
+        tension and other forces sets in.
         While real surface-tension is difficult to model, it is possible to achieve a similar effect by 
-        applying diffusion on the water texture as well as the wet pigment texture.
+        applying diffusion on the water texture and the wet pigment texture.
         </p>
 
         <p>
-        For each cell, four diffusion factors <TeX>{fDiffusion}</TeX> are computed -
-        one for the cell above, below, to the left and to the right. The diffusion factors are given by
+        For each cell, four diffusion factors <TeX>{fDiffusion}</TeX> are computed for each of its four neighbor cells <TeX>i</TeX> -
+        (above, below, to the left and to the right). The diffusion factors are given by
+        </p>
+
+        <p className="block-equation">
+        <TeX>{diffusionFactorEquation}</TeX>,
         </p>
 
         <p>
-        <TeX>{diffusionEquation}</TeX>,
+        where <TeX>w^\prime</TeX> is the water content of the current cell,
+        <TeX>w_i^\prime</TeX> is the water content of the neighnoring one and <TeX>{vDiffusion}</TeX> is a global diffusion constant.
         </p>
-
         <p>
-        where <TeX>w_1^\prime</TeX> is the water content of the current cell,
-        <TeX>w_2^\prime</TeX> is the water content of the neighnoring one and <TeX>{vDrying}</TeX> is a global diffusion constant.
+        The diffusion factors are used to determine how much water and pigment that are exchanged between the two neighboring cells.
+        In a simulation step, the new water amount <TeX>w</TeX> and the new wet pigment vector <TeX>p_w</TeX> are calculated as
         </p>
-
-
-
-
-
+        <p className="block-equation"><TeX>{diffusionWaterEquation}</TeX></p>
+        <p>and</p>
+        <p className="block-equation"><TeX>{diffusionPigmentEquation}</TeX>.</p>
         
 
 
@@ -274,6 +279,9 @@ export default React.createClass({
        <li>Add paint manually</li>
        <li>Support different size of stains from 1 render pass</li>
        <li>Distribute stains</li>
+       <li>Painted video: only paint differences.</li>
+
+
        </ul> 
 
     </article>
