@@ -4,9 +4,7 @@ import HeaderRenderer from './headerrenderer';
 import {vec2, vec3} from 'gl-matrix';
 import Stats from 'stats-js';
 
-import RandomStainBrush from 'stains/src/brushes/randomstainbrush';
 import ImageStainBrush from 'stains/src/brushes/imagestainbrush';
-import StainBrush from 'stains/src/brushes/stainbrush';
 
 class HeaderAnimation {
   constructor(gl, w, h) {
@@ -48,13 +46,9 @@ class HeaderAnimation {
     window.ondevicemotion = function(event) {
       let f = event.accelerationIncludingGravity;
       if (f && f.x && f.y && f.z) {
-        
         let accMagnitude = f.x * f.x + f.y * f.y + f.z * f.z; 
         let denominator = Math.max(accMagnitude, 1.0);
         vec3.set(self._force, f.x / denominator, f.y / denominator, f.z / denominator);
-
-        //console.log(self._force);
-        //self._forceChanged = true;
       }
     }
 
@@ -71,20 +65,17 @@ class HeaderAnimation {
     
     this._stats = new Stats();
     //this._stats.setMode( 1 );
-    document.body.appendChild(this._stats.domElement );
-    this._stats.domElement.style.position = 'fixed';
-    this._stats.domElement.style.bottom = '0'
+    //document.body.appendChild(this._stats.domElement );
+    //this._stats.domElement.style.position = 'fixed';
+    //this._stats.domElement.style.bottom = '0'
 
-
-    this._randomBrush = new RandomStainBrush({
-        simulator: this._simulator
-    });
 
     this._imageStainBrush = new ImageStainBrush({
         context: this._context,
         simulator: this._simulator,
-        imageSource: 'input.png'
+        imageSource: 'input4.jpg'
     });
+    this._stainQueue = [];
 
     this._stainTimer = 0;
     this._nStains = 0;
@@ -106,8 +97,6 @@ class HeaderAnimation {
   }
 
   step() {
-
-
     if (this._forceChanged) {
       this._simulator.setTextureCoordinatesAndForces(
         [ 0.0, 1.0, 
@@ -152,12 +141,20 @@ class HeaderAnimation {
           let inputY = 0.15 + Math.random() * 0.75;
 
           let position = vec2.fromValues(inputX, inputY);
-
-          this._imageStainBrush.apply(position, size, amount);
+          this.applyStain(position, size, amount);
           this._nStains++;
         }
         this._stainTimer = Math.random() * 2 * timerCoefficient;
       }
+
+      this._stainQueue.forEach((stainSpecification) => {
+        this._imageStainBrush.apply(
+          stainSpecification.position,
+          stainSpecification.size,
+          stainSpecification.amount
+        );
+      });
+      this._stainQueue = [];
 
       this._stainTimer--;
 
@@ -169,6 +166,14 @@ class HeaderAnimation {
     } else {
       this._status = 'off';
     }
+  }
+
+  applyStain(position, size, amount) {
+    this._stainQueue.push({
+      position: position,
+      size: size,
+      amount
+    });
   }
 
   setSize(w, h) {

@@ -42,6 +42,16 @@ export default React.createClass({
 
       headerAnimation.start();
     }
+
+
+    canvas.addEventListener("mousemove", function (evt) {
+      if (!evt.buttons) return;
+      headerAnimation.applyStain(
+        [(evt.pageX - this.offsetLeft) / canvas.width, 1.0 - (evt.pageY - this.offsetTop) / canvas.height],
+        Math.random() * 10,
+        0.7 + 0.2 * Math.random()
+      );
+    });
   },
 
   componentWillUnmount() {
@@ -51,7 +61,7 @@ export default React.createClass({
   render() {
     return (
       <header id="main-header">
-        <div className="main-title">
+        <div style={{pointerEvents: 'none'}} className="main-title">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="310.485px" height="295.289px" viewBox="0 0 310.485 295.289" enableBackground="new 0 0 310.485 295.289"
    xmlSpace="preserve">
@@ -79,7 +89,6 @@ export default React.createClass({
 
         </div>
         <canvas id="main-header-canvas"></canvas>
-        <div id="main-header-canvas-overlay"></div>
       </header>
     )
   }

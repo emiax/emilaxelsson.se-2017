@@ -8,9 +8,9 @@ import StainsPage from './templates/stainspage';
 
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 
+
 const routes = ((
   <div>
-  
   <Router onUpdate={() => window.scrollTo(0, 0)} history={hashHistory}>
     <Route path='/' component={MainContainer}>
       <IndexRoute component={StartPage}/>
