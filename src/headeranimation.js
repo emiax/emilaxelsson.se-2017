@@ -147,7 +147,13 @@ class HeaderAnimation {
 
       if (this._stainTimer < 0) {
         if (this._imageStainBrush.isReady()) {
-          this._imageStainBrush.apply(size, amount);
+
+          let inputX = 0.01 + Math.random() * 0.98;
+          let inputY = 0.15 + Math.random() * 0.75;
+
+          let position = vec2.fromValues(inputX, inputY);
+
+          this._imageStainBrush.apply(position, size, amount);
           this._nStains++;
         }
         this._stainTimer = Math.random() * 2 * timerCoefficient;
