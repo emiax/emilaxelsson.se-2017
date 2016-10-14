@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
-import StainsHeader from './stainsheader'
+import StainsComponent from './stainscomponent';
+import EaLogoComponent from './ealogocomponent';
 
-export default React.createClass({
+export default class extends React.Component {
   render() {
     return (
       <div>
-      <StainsHeader/>
+      <div className="start-page-header">
+        <StainsComponent src="input4.jpg" randomPaint="true" mousePaint="true"/>
+        <EaLogoComponent/>
+      </div>
       <article>
       <h2>An introduction</h2>
 
@@ -86,4 +90,4 @@ export default React.createClass({
       </div>
       );
     }
-});
+};

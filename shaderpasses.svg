@@ -42,13 +42,6 @@
 	<text transform="matrix(1 0 0 1 180.8514 20.2107)" fill="#5F90B7" font-family="'Lato'" font-weight="700" font-size="8.5039">NEW WATER TEXTURE</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 110.3942 13.1749)" fill="#5F90B7" font-family="'Lato'" font-size="8.5039">shader pass 1</text>
-</g>
-<text transform="matrix(1 0 0 1 110.3942 43.2086)" fill="#37415E" font-family="'Lato'" font-size="8.5039">shader pass 2</text>
-<g>
-	<text transform="matrix(1 0 0 1 110.3942 68.3251)" fill="#666364" font-family="'Lato'" font-size="8.5039">shader pass 3</text>
-</g>
-<g>
 	<text transform="matrix(1 0 0 1 186.6551 45.4341)" fill="#37415E" font-family="'Lato'" font-weight="700" font-size="8.5039">NEW WET TEXTURE</text>
 </g>
 <g>

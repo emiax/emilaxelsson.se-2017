@@ -1,26 +1,32 @@
 import WebglContext from 'stains/src/webglcontext';
 import Simulator from 'stains/src/simulator';
-import HeaderRenderer from './headerrenderer';
+import Renderer from 'stains/src/defaultrenderer';
 import {vec2, vec3} from 'gl-matrix';
 import Stats from 'stats-js';
 
 import ImageStainBrush from 'stains/src/brushes/imagestainbrush';
+import StainBrush from 'stains/src/brushes/stainbrush';
+import ClearBrush from 'stains/src/brushes/clearbrush';
 
-class HeaderAnimation {
-  constructor(gl, w, h) {
-    //let textureSize = vec2.fromValues(1920, 1080);
+class StainAnimation {
+  constructor(gl, w, h, imageSource, backgroundColor) {
     let textureSize = vec2.fromValues(w, h);
-    //let textureSize = vec2.fromValues(512, 512);
-
     let context = this._context = new WebglContext(gl);
-    context.getExtension('OES_texture_float');
-    context.getExtension('OES_texture_float_linear');
-    context.getExtension('OES_texture_half_float');
-    context.getExtension('OES_texture_half_float_linear');
 
     this._simulator = new Simulator({
       context: context,
       size: textureSize
+    });
+
+    this._stainBrush = new StainBrush({
+      context: this._context,
+      simulator: this._simulator
+    });
+
+
+    this._clearBrush = new ClearBrush({
+      context: this._context,
+      simulator: this._simulator
     });
 
     this._simulator.setTextureCoordinatesAndForces(
@@ -40,46 +46,37 @@ class HeaderAnimation {
         ]
     );
 
-    let force = this._force = vec3.fromValues(0, 0, 0);
-
-    let self = this;
-    window.ondevicemotion = function(event) {
-      let f = event.accelerationIncludingGravity;
-      if (f && f.x && f.y && f.z) {
-        let accMagnitude = f.x * f.x + f.y * f.y + f.z * f.z; 
-        let denominator = Math.max(accMagnitude, 1.0);
-        vec3.set(self._force, f.x / denominator, f.y / denominator, f.z / denominator);
-      }
-    }
-
+    this._force = vec3.fromValues(0, 0, 0);
+    this._eachFrameFunctions = [];
+    
     if (!this._simulator.init()) {
       this._initialized = false;
       return;
     }
 
-    this._headerRenderer = new HeaderRenderer({
+    this._renderer = new Renderer({
       context: context,
       textureSize: textureSize,
-      headerSize: vec2.fromValues(w, h)
+      displaySize: vec2.fromValues(w, h)
     });
     
-    this._stats = new Stats();
+    //this._stats = new Stats();
     //this._stats.setMode( 1 );
     //document.body.appendChild(this._stats.domElement );
     //this._stats.domElement.style.position = 'fixed';
     //this._stats.domElement.style.bottom = '0'
 
+    if (imageSource) {
+      this.setImageSource(imageSource);
+    }
+    if (!backgroundColor) {
+      backgroundColor = [0.98, 0.98, 0.98];
+    }
+    this._renderer.setBackgroundColor(backgroundColor);
 
-    this._imageStainBrush = new ImageStainBrush({
-        context: this._context,
-        simulator: this._simulator,
-        imageSource: 'input4.jpg'
-    });
     this._stainQueue = [];
-
     this._stainTimer = 0;
     this._nStains = 0;
-
     this._initialized = true;
   }
 
@@ -92,8 +89,12 @@ class HeaderAnimation {
 
   stop() {
     console.log("stopping animation.");
-    this._stats.domElement.remove();
+    //this._stats.domElement.remove();
     this._status = 'stop';
+  }
+
+  isStarted() {
+    return this._status === 'on';
   }
 
   step() {
@@ -118,54 +119,35 @@ class HeaderAnimation {
     }
 
     if (this._status === 'on') {
-      this._stats.begin();
-
-      let size = Math.random() * 20;
-      let amount = 0.8;
-      let timerCoefficient = 1;
-      if (this._nStains < 500) {
-        size *= 1.5;
-        amount *= 0.8;
-        timerCoefficient * 2.0;
-      }
-      if (this._nStains < 100 && this._nStains % 3 === 0) {
-        size *= 1.5;
-        amount *= 0.8;
-        timerCoefficient * 2.0;
-      }
-
-      if (this._stainTimer < 0) {
-        if (this._imageStainBrush.isReady()) {
-
-          let inputX = 0.01 + Math.random() * 0.98;
-          let inputY = 0.15 + Math.random() * 0.75;
-
-          let position = vec2.fromValues(inputX, inputY);
-          this.applyStain(position, size, amount);
-          this._nStains++;
-        }
-        this._stainTimer = Math.random() * 2 * timerCoefficient;
+      //this._stats.begin();
+      this._eachFrameFunctions.forEach((fn) => {
+        fn();
+      });
+      if (this._clear) {
+        this._clearBrush.apply();
+        this._clear = false;
       }
 
       this._stainQueue.forEach((stainSpecification) => {
-        this._imageStainBrush.apply(
+        this._activeBrush.apply(
           stainSpecification.position,
           stainSpecification.size,
           stainSpecification.amount
         );
       });
       this._stainQueue = [];
-
-      this._stainTimer--;
-
       this._simulator.step();
-      this._headerRenderer.render(this._simulator);
+      this._renderer.render(this._simulator);
 
       requestAnimationFrame(this.step.bind(this));
-      this._stats.end();
+      //this._stats.end();
     } else {
       this._status = 'off';
     }
+  }
+
+  doEachFrame(fn) {
+    this._eachFrameFunctions.push(fn);
   }
 
   applyStain(position, size, amount) {
@@ -177,8 +159,41 @@ class HeaderAnimation {
   }
 
   setSize(w, h) {
-    this._headerRenderer.setHeaderSize(vec2.fromValues(w, h));
+    this._renderer.setDisplaySize(vec2.fromValues(w, h));
+  }
+
+  setBrush(brushString) {
+    if (brushString === 'imageStain') {
+      this._activeBrush = this._imageStainBrush;
+    } else {
+      this._activeBrush = this._stainBrush;
+    }
+  }
+
+  clear() {
+    this._clear = true;
+  }
+
+  setForce(force) {
+    this._force = force;
+    this._forceChanged = true;
+  }
+
+  setImageSource(src) {
+    this._imageStainBrush = new ImageStainBrush({
+        context: this._context,
+        simulator: this._simulator,
+        imageSource: src
+    });
+  }
+
+  setColor(color) {
+    this._stainBrush.setColor(color);
+  }
+
+  setBackgroundColor(backgroundColor) {
+    this._renderer.setBackgroundColor(backgroundColor);
   }
 }
 
-module.exports = HeaderAnimation;
+module.exports = StainAnimation;
