@@ -8,17 +8,16 @@ export default class extends React.Component {
     return (
       <div>
       <div className="start-page-header">
-        <StainsComponent src="input4.jpg" randomPaint="true" mousePaint="true"/>
+        <StainsComponent src="input4.jpg" brushSize={20} randomPaint mousePaint backgroundColor={[0.98, 0.98, 0.98]}/>
         <EaLogoComponent/>
+        <div className="fade-to-white"></div>
       </div>
       <article>
-      <h2>An introduction</h2>
+      <h2>Hi, I'm Emil</h2>
 
-      <p className="intro">
-      Hi, I'm Emil. I like being creative, solving technical problems,
-      working with computer graphics, designing visualizations, coming up
-      with elegant algorithms, interacting with people, playing and recording music,
-      and working with web technologies.
+      <p className="intro">I'm a creative engineer, based in Norrköping, Sweden.
+      I like the places where software and people meet. Luckily, that happens sort of everywhere these days.
+      Bring music, visualizations, graphics and great teamwork into the mix, and I'm in my favorite spot.
       </p>
 
       <p>
@@ -27,13 +26,32 @@ export default class extends React.Component {
       both developing tech infrastructure and creating movies and interactive content.
       </p>
 
+      <h2>Let's talk!</h2>
+      <p>
+      It's probably easiest to send a message
+      on <a href="https://www.facebook.com/nils.emil.axelsson">Facebook</a> or
+      to drop an email to <a href="mailto:mail@emilaxelsson.se">mail@emilaxelsson.se</a>.
+      You may want to find me on <a href="http://github.com/emiax">Github</a> or <a href="https://www.linkedin.com/in/emiax">LinkedIn</a> as well.
+      </p>
       <h2>Some of my work</h2>
-      <h3>Stains: Procedural aquarelle</h3>      
-      <Link to="stains">Stains</Link>
+      <h3>Stains: Interactive art in the browser</h3>      
+      <div src="enlil.jpg" className="hang-right" style={{position: 'relative', width: 400, height: 400}}>
+        <StainsComponent src="input2.png" brushSize={10} randomPaint mousePaint backgroundColor={[0.97, 0.97, 0.97]}/>
+      </div>
+      <p>
+        <Link to="stains"><em>Stains</em></Link> is a JavaScript/WebGL library that I created to mimic the
+        visual appearance and behaviour of aquarelle on a canvas. The library, which can
+        procedurally generate aquarelle paintings is used to create
+        artistic-looking elements for my personal website and allow visitors to interact with the content.
+        It does not necessarily serve a much deeper purpose than simply looking visually appealing,
+        but I also think it is an interesting proof-of-concept for a style of computer graphics,
+        that could be used in other contexts, such as digital storytelling,
+        computer games, VJing or other forms of interactive art.
+      </p>
 
       <h3>OpenSpace and Master's thesis @ NASA</h3>
 
-      <div className="imagetest" style={{width: '400px', height: '400px'}}></div>
+      <img src="enlil.jpg" className="hang-left" style={{width: 500, height: 500 * 540/960}}></img>
       <p>
       Interdum et malesuada fames ac ante ipsum primis in faucibus.
       Suspendisse feugiat scelerisque justo, in dignissim mauris.
@@ -46,11 +64,27 @@ export default class extends React.Component {
       vestibulum nibh.
       </p>
 
-      <h3>Best Healthcare and Medical Care @ East Sweden Hack 2016</h3>
+      <h3>Best Healthcare and Medical Care @ ESH2016</h3>
+      <img src="esh.jpg" className="hang-right" style={{width: 500, height: 500 * 1322/2048}}></img>
+      <p>
+      Vivamus quis malesuada nisl. Phasellus volutpat orci ut metus gravida,
+      quis varius leo porta. Pellentesque neque diam, consequat et justo sed, finibus pretium dui.
+      Aenean pretium massa nec ipsum maximus, vel molestie elit maximus. Nam aliquam libero eget dictum viverra.
+      Nam eget quam vitae velit laoreet semper vitae sit amet est. Sed varius erat nec nibh euismod,
+      at ornare nisi porttitor. Phasellus suscipit quis ipsum vel tincidunt. Fusce at dignissim nisi,
+      sed molestie justo. Proin at varius turpis. Quisque varius, lectus in sodales varius,
+      tellus orci consectetur turpis, sit amet rutrum magna metus vel diam. Nunc ut viverra lacus.
+      Nam dignissim quis dui ut dapibus. Ut urna mi, convallis nec mi id, maximus posuere enim.
+      </p>
+
 
       <h3>Accessibility @ Spotify</h3>
       
-      <div className="imagetest2" style={{width: '200px', height: '200px'}}></div>
+      <div className="hang-right" style={{width: 200, height: 200}}>
+        <svg viewBox="-20 -20 140 140">
+          <use xlinkHref="spotify.svg#spotify"></use>
+        </svg>
+      </div>
       <p>
       Vivamus quis malesuada nisl. Phasellus volutpat orci ut metus gravida,
       quis varius leo porta. Pellentesque neque diam, consequat et justo sed, finibus pretium dui.

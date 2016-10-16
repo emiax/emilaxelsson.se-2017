@@ -6,8 +6,8 @@ import NavBar from './navbar';
 
 export default class extends React.Component {
   render() {
-    let pw = "\\mathbf{p}_{w}";
-    let pd = "\\mathbf{p}_{d}";
+    let pw = "\\mathbf{p}_w";
+    let pd = "\\mathbf{p}_d";
 
     let pw1 = "\\mathbf{p}_{w_1}";
     let pw1Prime = "\\mathbf{p}_{w_1}^\\prime";
@@ -30,6 +30,7 @@ export default class extends React.Component {
       'float advectionFactor(waterAmount)\n' +
       '  return smoothstep(lowerThreshold, upperThreshold, waterAmount);\n' +
       '}'];
+
     let dryingEquationDry = '\\mathbf{p}_d = \\mathbf{p}_d^\\prime + ' + fDrying + '\\cdot \\mathbf{p}_w^\\prime';
     let dryingEquationWet = '\\mathbf{p}_w = \\mathbf{p}_w^\\prime - ' + fDrying + '\\cdot \\mathbf{p}_w^\\prime';
 
@@ -39,16 +40,19 @@ export default class extends React.Component {
     let diffusionWaterEquation = 'w = (1 - \\sum_{i} ' + fDiffusion + ') \\cdot w^\\prime + \\sum_{i} ' + fDiffusion + 'w^\\prime_i';
     let diffusionPigmentEquation = '\\mathbf{p}_w = (1 - \\sum_{i} ' + fDiffusion + ') \\cdot \\mathbf{p}_w^\\prime + \\sum_{i} ' + fDiffusion + '\\mathbf{p}_{w_i}^\\prime';
 
+    let finalColor = "\\mathbf{c}";
+    let finalColorEquation = '\\mathbf{c} = ' + pw + ' + (1 - \\mathbf{p}_{w_a})' + pd;
+
     return (
       <div>
       <NavBar/>
       <div className="stains-page-header">
-        <StainsComponent src="input4.jpg" randomPaint mousePaint backgroundColor={[0.1, 0.1, 0.1]}/>
+        <StainsComponent src="input4.jpg" brushSize={15} randomPaint mousePaint backgroundColor={[0.1, 0.1, 0.1]}/>
       </div>
       <article>
         <h2>Stains: Interactive art in the browser</h2>
         <p>
-        <em>Stains</em> is a JavaSript/WebGL library that I created to mimic the
+        <em>Stains</em> is a JavaScript/WebGL library that I created to mimic the
         visual appearance and behaviour of aquarelle on a canvas. The library, which can
         procedurally generate aquarelle paintings is used to create
         artistic-looking elements for my personal website and allow visitors to interact with the content.
@@ -74,7 +78,7 @@ export default class extends React.Component {
         There are sophisticated physical models out there that accurately approximate the behavior of a real fluid,
         but in order to create efficient real-time graphics applications, it is sometimes a good idea to cheat.
         For example, while it still makes sense to base the model on physical laws,
-        modelling surface tension and pressure accurately is not 
+        a correct model covering all phenomena such as surface tension and pressure is not 
         only difficult to implement: it also requires a lot of computational resources to get right.
         </p>
         <p>
@@ -125,6 +129,7 @@ export default class extends React.Component {
         This means that in total, one canvas requires four <TeX>RGBA</TeX>-textures and two scalar ones. 
         </p>
 
+
         <h3>Simulating paint on the canvas</h3>
         <p>
         The image below illustrates the flow of data between the textures. 
@@ -170,11 +175,11 @@ export default class extends React.Component {
         </p>
         <p>
         where <TeX>{fAdv}</TeX> is a function,
-        that computes a factor <TeX>\in [0, 1]</TeX> of how much of the conatained water that should be transported
+        that computes a factor <TeX>\in [0, 1]</TeX> of how much of the contained water that should be transported
         away given the the amount of water in the cell itself.
         The first term in the equation corresponds to the amount of water that remains in the current cell,
         while the second one gathers the incoming water from the neighbor cell. After experimenting with different models, I decided to set <TeX>{fAdv}</TeX> to a monotonically growing function
-        implemented using the GLSL smoothstep function, outputting values between 0 and 1:
+        implemented using GLSL's <code>smoothstep</code> function, outputting values between 0 and 1:
         </p>
 
         <pre className="source-code">
@@ -215,11 +220,11 @@ export default class extends React.Component {
         <p className="block-equation">
         <TeX>{evaporationEquation}</TeX>
         </p>
-        <p>where <TeX>w</TeX> is the new water amount, <TeX>w^\prime</TeX> is the old water amount, and <TeX>v_e</TeX> is a global evapoartion rate.</p>
+        <p>where <TeX>w</TeX> is the new water amount, <TeX>w^\prime</TeX> is the old water amount, and <TeX>v_e</TeX> is a global evaporation rate.</p>
 
         <h4>Drying</h4>
         <p>
-        While pigment that are disolved in water is transported along with the water,
+        While pigment that are dissolved in water is transported along with the water,
         pigment that have been absorbed by the canvas is less likely to get flushed away by the water.
         In reality, a canvas is a quite rough surface which makes the absorption non-uniform. 
         To achieve these effects, each simulation step contains a simple algorithm that
@@ -234,7 +239,7 @@ export default class extends React.Component {
         </p>
 
         <p>where <TeX>{vDrying}</TeX> is a global drying rate, and <TeX>\epsilon</TeX> is a deterministic noise function used
-        to modulate the drying over the canvas giving each grid cell (with coordinates <TeX>(x, y)</TeX>) a unique absoption coefficient, making the canvas less "perfect" and more realistic.
+        to modulate the drying over the canvas giving each grid cell (with coordinates <TeX>(x, y)</TeX>) a unique absorption coefficient, making the canvas less "perfect" and more realistic.
         The noise function is borrowed from Stefan Gustavsson's and Ashima Art's <a href="https://github.com/stegu/webgl-noise">implementation</a> of <a href="http://www.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf">simplex noise</a>. 
         </p>
       
@@ -270,7 +275,7 @@ export default class extends React.Component {
 
         <p>
         where <TeX>w^\prime</TeX> is the water content of the current cell,
-        <TeX>w_i^\prime</TeX> is the water content of the neighnoring one and <TeX>{vDiffusion}</TeX> is a global diffusion constant.
+        <TeX>w_i^\prime</TeX> is the water content of the neighboring one and <TeX>{vDiffusion}</TeX> is a global diffusion constant.
         </p>
         <p>
         The diffusion factors are used to determine how much water and pigments that are exchanged between the two neighboring cells.
@@ -289,7 +294,7 @@ export default class extends React.Component {
         In total, that would mean <TeX>3 \cdot 4 = 12</TeX> shader passes per simulation step.
         A possible order of operations would be 1) evaporation, 2) advection, 3) drying, 4) diffusion.
         Since an important goal is to make the simulation resource efficient,
-        in order not to occupy the whole GPU and CPU while the user is "just browsing a website", it would 
+        in order not to occupy the whole GPU and CPU while the user is <em>just browsing a website</em>, it would 
         be beneficial if to minimize the number of shader passes. 
         </p>
         <p>
@@ -309,24 +314,103 @@ export default class extends React.Component {
         This decreases the required texture samples by four in both the water simulation and the wet pigment simulation, without causing a noticable visual difference.
         </p>
 
-
         <h3>Adding paint to the canvas</h3>
-        <div className="stains-page-widget">
-        <StainsComponent brush="stainsBrush" brushDemo backgroundColor={[0.98, 0.98, 0.98]}/>
+        <p>When using a brush to paint on a surface, color is not only released from the brush:
+        it also gets picked up from the canvas and dragged along with the brush strokes.
+        Modelling this would require a relatively sophisticated simulation.
+        Drip painting on the other hand can be modelled in a much simpler way,
+        by just adding water and pigment to the canvas.
+        I decided to implement this, and save other brush techniques for future work.
+
+        </p>
+        <h4>Modelling drip painting</h4>
+        <p>
+        The act of adding paint to the canvas is implemented using two shader passes:
+        one writing to the water texture and one writing to the wet pigment texture.
+        The dry texture is not affected directly, but only gets filled with pigment thanks to the drying process described earlier.
+        </p>
+        <p>
+        When dripping paint on a canvas, stains usually come in clusters.
+        To create a stain, a set of points and sizes are generated with JavaScript's built in <code>Math.rand()</code> function.
+        The set of points and sizes are fed in as a uniform vec2 array and a unfiform float array to the GPU.
+        For each cell, a fragment shader is picking out the closest of these points, normalized by point size, using linear search.
+        The amount of water and pigment to add to each cell on the canvas is calculated using GLSL's <code>smoothstep</code> function.
+
+        </p>
+        <pre className="source-code">
+        float amount = smoothstep(stainSize, stainSize * 0.5, distance);
+        </pre>
+        <p>
+        Apart from being in different positions and sizes,
+        stains can also be applied with different amount of water and pigment, and with different colors.
+
+        </p>
+
+        <div className="stains-page-widget-small">
+        <StainsComponent brush="stainsBrush" brushDemo fuzziness={0} backgroundColor={[0.98, 0.98, 0.98]}/>
+        </div>
+        <p className="caption">
+        Along each row, the stain size increases. For each stain, the amount of water and pigment increases.
+        On the top row, the amount of water has increased to the level required
+        for gravity to successfully pull the paint downwards. 
+        </p>
+
+        <h4>Fuzzy drops</h4>
+
+        <p>
+        In reality, stains may be quite round in their shape, but they are never perfectly circular.
+        To achieve this, the closest distance to a stain point is modulated using the same noise function that was used to modulate the drying: simplex noise.
+        </p>
+
+        <div className="stains-page-widget-small">
+        <StainsComponent brush="stainsBrush" brushDemo fuzziness={0.4} backgroundColor={[0.98, 0.98, 0.98]}/>
+        </div>
+        <p className="caption">
+        Noise is applied to the distance to the closest point, creating a more realistic result. 
+        </p>
+
+        <h3>Selecting colors</h3>
+        <img src="input_original_800.png" className="hang-right" style={{width: '400px', height: '400px'}}></img>
+        <p>
+        As an experiment, I implemented a feature to allow the library select colors from existing images,
+        essentially making it possible to feed in a photo and turn it into a drip painting.
+        The image is fed into wet pigment shader pass for adding stains,
+        and colors are sampled from the center point of all the points in a stain cluster.
+        </p>
+
+        <p>
+        This photo is taken from a path along Göta Kanal.
+        I manually masked out the water in the photo,
+        and instructed the algorithm to put more water in the color when painting in those areas.
+        </p>
+        <div className="stains-page-widget-square">
+        <StainsComponent src="input.png" randomPaint mousePaint brushSize={15} fuzziness={0.4} backgroundColor={[0.98, 0.98, 0.98]}/>
         </div>
 
 
+        <h3 style={{clear: 'both'}}>Rendering the model to the screen</h3>
+        <p>
+        To render the data to the screen, the contents of the dry and wet pigment
+        are both taken into account. The water is considered invisible and does not
+        contribute to the final rendering other than dictating the flow of pigment during the simulation step.
+        The final color vector <TeX>{finalColor}</TeX> is given by the blending equation
+        </p>
+        <p className="block-equation">
+        <TeX>{finalColorEquation}</TeX>
+        </p>
+        <p>
+        where <TeX>{pw}</TeX> is the wet pigment vector, and <TeX>{pd}</TeX> is the dry pigment vector.
+        </p>
+        <h3>To wrap up</h3>
+        <p>I think this project demonstrates how relatively simple physically based simulation 
+        can be combined with procedural methods for images, such as noise, to create visually convincing results.
+        When working on this, a lot of different ideas of future improvements and use cases have popped up in my head:
+        How about a full game with graphics based on this style? Or some kind of interactive movie?
+        </p>
 
-        <h3>Rendering the model to the screen</h3>
-        
-
-       <h3>TODO</h3>
-       <ul>
-       <li>Upload image?</li>
-
-
-       </ul> 
-
+        <p>If you're interested in using the stuff in your own project,
+        the source code is freely available on <a href="https://github.com/emiax/stains">Github</a> under the MIT license.
+        </p>
     </article>
     </div>
     )

@@ -41,16 +41,36 @@ nav a {
   color: #000;
   text-align: center;
   height: 100vh;
+  position: relative;
 }
 
 .stains-page-header {
   height: 50vh;
+  position: relative;
 }
 
 .stains-page-widget {
-  height: 50vh;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 500px;
+  clear: both;
+  position: relative;
 }
 
+.stains-page-widget-small {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 350px;
+  clear: both;
+  position: relative;
+}
+
+.stains-page-widget-square {
+  width: 100%;
+  padding-bottom: 100%;
+  clear: both;
+  position: relative;
+}
 
 .main-title {
   width: 100%;
@@ -65,6 +85,7 @@ h1 {
   font-size: 4em;
   padding-bottom: 1em;
   padding-top: 0.2em;
+  clear: both;
 }
 
 
@@ -73,6 +94,7 @@ h2 {
   font-size: 3em;
   padding-bottom: 0.5em;
   padding-top: 1em;
+  clear: both;
 }
 
 h3 {
@@ -80,6 +102,7 @@ h3 {
   font-size: 2em;
   padding-bottom: 0.75em; 
   padding-top: 1em;
+  clear: both;
 }
 
 h4 {
@@ -87,15 +110,17 @@ h4 {
   font-size: 1.5em;
   padding-top: 1em;
   padding-bottom: 0.5em; 
+  clear: both;
 }
 
 
 
-article {
+article, footer div {
   max-width: 800px;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 50px;
+  padding-bottom: 50px;
   margin-left: auto;
   margin-right: auto;  
 }
@@ -127,26 +152,24 @@ a {
   color: #5b9b42;
 }
 
-.imagetest {
+.hang-left {
   float: left;
   margin: 25px 25px 25px -100px;
-  background-color: #444;
 }
 
 @media (max-width: 1000px) {
-  .imagetest {
+  .hang-left {
     margin: 25px 25px 25px 0;
   }
 }
 
-.imagetest2 {
+.hang-right {
   float: right;
   margin: 25px -100px 25px 25px;
-  background-color: #444;
 }
 
 @media (max-width: 1000px) {
-  .imagetest2 {
+  .hang-right {
     margin: 25px 0 25px 25px;
   }
 }
@@ -187,3 +210,27 @@ pre.source-code {
   background-color: #444;
   margin-bottom: 1.2em;
 }
+
+.fade-to-white {
+  position: absolute;
+  bottom: 0px;
+  height: 20vh;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+  width: 100%;
+  pointer-events: none;
+}
+
+footer {
+  background-color: #111;
+  color: #eee;
+}
+
+footer p {
+  font-size: 1.4em;
+  text-align: left;
+  color: #eee;
+  line-height: 1.55em;
+  font-weight: 300;
+  padding-bottom: 1.2em;
+}
+

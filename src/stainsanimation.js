@@ -132,7 +132,9 @@ class StainAnimation {
         this._activeBrush.apply(
           stainSpecification.position,
           stainSpecification.size,
-          stainSpecification.amount
+          stainSpecification.amount,
+          stainSpecification.concentration,
+          stainSpecification.fuzziness
         );
       });
       this._stainQueue = [];
@@ -150,11 +152,13 @@ class StainAnimation {
     this._eachFrameFunctions.push(fn);
   }
 
-  applyStain(position, size, amount) {
+  applyStain(position, size, amount, concentration, fuzziness) {
     this._stainQueue.push({
       position: position,
       size: size,
-      amount
+      amount: amount,
+      concentration: concentration,
+      fuzziness: fuzziness
     });
   }
 
